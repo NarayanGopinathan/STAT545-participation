@@ -10,6 +10,7 @@ I am from the Golden State of California, which has been described thusly accord
 I am learning how to code for the first time. For most of my life I found coding to be the one academic subject that did not *click* for me, but I know that it is quite **useful** and so ***that is why I am here.***
 
 Even though I have never coded, I have edited [Wikipedia](en.wikipedia.org) for many years. The markup language used on Wikipedia is analogous but distinct. For example, in this R Markdown, a link to Wikipedia's homepage would go
->\[Wikipedia](en.wikipedia.org)\ 
-but in  Wiki Markup language, it  would go 
-\[Wikipedia en.wikipedia.org]\
+>\[Wikipedia](en.wikipedia.org)\
+
+but in  Wiki Markup language, it would go 
+>\[Wikipedia en.wikipedia.org]\
