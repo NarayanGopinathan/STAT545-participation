@@ -117,7 +117,7 @@ email %>%
 
 ```{r}
 n <- 100
-FILL_THIS_IN(label = FILL_THIS_IN,
+tibble(label = "sample_A",
              FILL_THIS_IN = rnorm(n),
              FILL_THIS_IN)
 ```
