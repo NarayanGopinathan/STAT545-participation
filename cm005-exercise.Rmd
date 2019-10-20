@@ -133,7 +133,15 @@ So you're a ggplot2 pro? Then, let's see this plot adapted to polar coordinates.
 The plot should look like a spiral, or concentric circles. 
 
 ```{r, fig.width = 5, fig.height = 2}
-FILL_THIS_IN
+suppressPackageStartupMessages(library(lubridate))
+ggplot(mauna, aes(month(month), conc)) +
+  geom_line(aes(group = year(month)), alpha = 0.5) +
+  coord_polar() +
+  scale_x_continuous(breaks = 1:12, 
+                     labels = month.abb) +
+  labs(x = "", 
+       y = expression(paste(CO[2], " Concentration"))) +
+  theme_bw()
 ```
 
 
@@ -300,7 +308,8 @@ The following code mistakenly puts the month variable on the y-axis. Fill in the
 
 ```{r, fig.width = 5, fig.height = 2}
 ggplot(mauna, aes(y = month)) +
-  geom_point(aes(FILL_THIS_IN))
+  geom_line(aes(month, conc)) + 
+  ylab("CO2")
 ```
 
 ### 2(c)
