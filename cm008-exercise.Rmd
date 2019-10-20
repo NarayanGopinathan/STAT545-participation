@@ -113,7 +113,8 @@ tribble(
   4, 0.4, 0.5
 ) %>% 
   ggplot(aes(x, y)) + 
-  geom_line()
+    geom_path(arrow = arrow()) +
+  geom_text(aes(label = time), nudge_y = 0.1, nudge_x = -0.02)
 ```
 
 ## Exercise 5: Life expectancies in Africa
@@ -122,12 +123,13 @@ tribble(
 
 Fix the plot so that you can actually see the data points. Be sure to solve the problem of overlapping text, without rotating the text.
 
-```{r, fig.width = 5, fig.height = 2}
+```{r, fig.width = 5, fig.height = 5}
 gapminder %>% 
   filter(continent == "Americas") %>% 
   ggplot(aes(country, lifeExp)) + 
-  geom_point() +
-  geom_boxplot()
+  geom_boxplot(outlier.alpha = 0) +
+  geom_jitter(alpha = 0.25, height = 0.2) +
+  coord_flip()
 ```
 
 ### 5(b) Ridgeplots
@@ -141,6 +143,19 @@ gapminder %>%
   geom_point() +
   geom_boxplot()
 ```
+```{r, fig.width = 5, fig.height = 5}
+gapminder %>% 
+	filter(continent == "Americas") %>% 
+	ggplot(aes(lifeExp, country)) + 
+	ggridges::geom_density_ridges() +
+	# ggridges::geom_rug(aes(group = country))
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  mutate(country = fct_reorder(country, lifeExp, median)) %>% 
+  ggplot(aes(lifeExp, country)) + 
+  ggridges::geom_density_ridges()
+```
+
 
 ## Exercise 6: Bar plot madness
 
@@ -158,6 +173,14 @@ mtcars %>%
   geom_bar(aes(colour = transmission))
 ```
 
+```{r, fig.width = 5, fig.height = 2}
+mtcars %>% 
+  mutate(transmission = if_else(am == 0, "automatic", "manual")) %>% 
+  ggplot(aes(cyl, ..prop..)) +
+  geom_bar(aes(fill = transmission), position = "dodge") +
+  scale_x_continuous(breaks = c(4, 6, 8)) # Or change cyl to factor(cyl)
+```
+
 ### 6(b) Bar heights already calculated
 
 Here's the number of people having a certain hair colour from a sample of 592 people:
@@ -169,9 +192,9 @@ Here's the number of people having a certain hair colour from a sample of 592 pe
 
 Fix the following bar plot so that it shows these counts.
 
-```{r}
+```{r, fig.width=5, fig.height=2}
 ggplot(hair, aes(Hair, n)) +
-  geom_bar()
+  geom_col()
 ```
 
 ## Exercise 7: Tiling
@@ -185,9 +208,9 @@ Here's the number of people having a certain hair and eye colour from a sample o
 
 Fix the following plot so that it shows a filled-in square for each combination. 
 
-```{r}
+```{r, fig.width=5, fig.height=2}
 ggplot(hair_eye, aes(Hair, Eye)) +
-  geom_point(aes(colour = n))
+  geom_tile(aes(fill = n))
 ```
 
 By the way, `geom_count()` is like `geom_bar()`: it counts the number of overlapping points.
